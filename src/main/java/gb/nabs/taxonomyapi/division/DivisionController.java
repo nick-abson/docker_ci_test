@@ -2,8 +2,11 @@ package gb.nabs.taxonomyapi.division;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 /**
@@ -24,7 +27,7 @@ public class DivisionController {
     // the json key names are the object property names.
 
 
-    //inject the SubclassService service
+    //inject the divisionService
     @Autowired
     private DivisionService divisionService;
 
@@ -49,10 +52,16 @@ public class DivisionController {
     //@RequestMapping(method = RequestMethod.POST , value = "/divisions")
     // new shorthand:
     @PostMapping("/divisions")
-    public void addDivision(@RequestBody Division division) {
+    public ResponseEntity<Void>  addDivision(@RequestBody Division division) {
         divisionService.addDivision(division);
 
+        // use this static method to construct a uri for the the newly created resource
+        // .path appends to the current request uri - substituting a template variable for the param supplied in buildAndExpand
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(division.getId()).toUri();
+        // return a 201 code
+        return ResponseEntity.created(location).build();
     }
+
     @DeleteMapping("divisions/{id}")
     public void deleteDivision(@PathVariable String id) {
        divisionService.deleteDivision(id);

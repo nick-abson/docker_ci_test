@@ -3,8 +3,11 @@ package gb.nabs.taxonomyapi.subclass;
 
 import gb.nabs.taxonomyapi.division.DivisionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 /**
@@ -40,11 +43,17 @@ public class SubclassController {
     @GetMapping("/divisions/{divisionId}/subclasses/{id}")
     public Subclass getSubclass(@PathVariable String id) {
         return subclassService.getSubclass(id);
-    }
+
+}
 
     @PostMapping("/divisions/{divisionId}/subclasses/")
-    public void addSubclass(@RequestBody Subclass subclass, @PathVariable String divisionId) {
+    public ResponseEntity addSubclass(@RequestBody Subclass subclass, @PathVariable String divisionId) {
         subclassService.addSubclass(divisionId, subclass);
+        // use this static method to construct a uri for the the newly created resource
+        // .path appends to the current request uri - substituting a template variable for the param supplied in buildAndExpand
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("{id}").buildAndExpand(subclass.getId()).toUri();
+        // return a 201 code
+        return ResponseEntity.created(location).build();
     }
 
     @DeleteMapping("divisions/subclasses/{id}")
