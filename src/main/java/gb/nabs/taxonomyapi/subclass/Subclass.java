@@ -2,26 +2,20 @@ package gb.nabs.taxonomyapi.subclass;
 
 
 import gb.nabs.taxonomyapi.division.Division;
+import gb.nabs.taxonomyapi.division.DivisionService;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.*;
 
-// map objects of this class to a table
-// JPA automatically creates a table
-// and can convert instances > rows and vice versa.
-@Entity
 public class Subclass {
-    //in JPA pk is marked with Id annotation
-    @Id
     private String id;
-
-    // foreign key
-    @ManyToOne
     private Division division;
     private String name;
     private String description;
+    @Autowired
+    private DivisionService divisionService;
 
     public Subclass(String id, String name, String description, String divisionId) {
-        this.division = new Division(divisionId, " ", " ");
+        this.division = divisionService.getDivision(divisionId);
         this.id = id;
         this.name = name;
         this.description = description;

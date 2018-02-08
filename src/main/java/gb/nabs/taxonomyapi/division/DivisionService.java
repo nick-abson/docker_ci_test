@@ -1,48 +1,69 @@
 package gb.nabs.taxonomyapi.division;
 
-// in spring a business service is usually a singleton
-// when the application it starts a single instance and registers it as a service
-// other classes can inject the service - to do this Spring will scan for @Autowired
-// when creates an instance of the other class
-//
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+// tell spring to create a single instance
+// in spring a business service is usually a singleton
+// when the application starts, Spring starts a single instance and registers it as a service
+// other classes can inject the service - to do this Spring will scan for @Autowired
 @Service
-public class DivisionService {
+public class DivisionService implements DivisionDAO {
 
-    // get an instance of the SubclassRepository
+    //Inject the JdbcTemplate
     @Autowired
-    private DivisionRepository divisionRepository;
+    private JdbcTemplate jdbcTemplate;
 
     public List<Division> getAllDivisions() {
-        // convert iterable to list
         List<Division> divisions = new ArrayList<>();
 
-        divisionRepository.findAll().forEach(divisions::add);
-        return divisions;
+        String sql = "SELECT id, name, description FROM division";
+
+        // you can create a class that implements RowMapper  to map class properties to  columns
+        //use BeanPropertyRowMapper when properties and columns are named the same
+        RowMapper<Division> rowMapper = new BeanPropertyRowMapper<Division>(Division.class);
+
+        return this.jdbcTemplate.query(sql, rowMapper);
+
     }
 
     public Division getDivision(String id) {
-        return divisionRepository.findOne(id);
+
+        String sql = "SELECT id, name, description FROM division where id = ? ";
+
+        RowMapper<Division> rowMapper = new BeanPropertyRowMapper<Division>(Division.class);
+        return this.jdbcTemplate.queryForObject(sql, rowMapper, id);
     }
 
+    // add or replace a resource
     public void addDivision(Division division) {
 
-        divisionRepository.save(division);
+        //TODO check ID was supplied in body - http error code if not
+        String sql = "INSERT INTO division (id, name, description) VALUES (?,?,?) " +
+                "ON CONFLICT (id) DO UPDATE " +
+                "SET name = EXCLUDED.name, description = EXCLUDED.description";
+        this.jdbcTemplate.update(sql, division.getId(), division.getName(), division.getName());
+    }
+
+    // save a resource where you know the resource uri
+    public void updateDivision(Division division, String id) {
+        // ignore any id supplied in the body of the request
+        division.setId(id);
+        this.addDivision(division);
     }
 
     public void deleteDivision(String id) {
-        divisionRepository.delete(id);
-    }
+        String sql = "DELETE FROM subclass WHERE division_id = ?";
+        this.jdbcTemplate.update(sql, id);
 
-    // save is add or update
-    public void updateDivision(Division division, String id) {
-        division.setId(id);
-        divisionRepository.save(division);
+        sql = "DELETE FROM division WHERE id = ?";
+        this.jdbcTemplate.update(sql, id);
     }
 }

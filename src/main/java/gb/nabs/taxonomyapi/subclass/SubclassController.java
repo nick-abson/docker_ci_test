@@ -1,7 +1,6 @@
 package gb.nabs.taxonomyapi.subclass;
 
 
-import gb.nabs.taxonomyapi.division.DivisionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,9 +31,6 @@ public class SubclassController {
     @Autowired
     private SubclassService subclassService;
 
-    @Autowired
-    private DivisionService divisionService;
-
     @GetMapping("/divisions/{divisionId}/subclasses")
     public List<Subclass> getAllSubclasses(@PathVariable String divisionId) {
         return subclassService.getAllSubclasses(divisionId);
@@ -45,7 +41,6 @@ public class SubclassController {
         return subclassService.getSubclass(id);
 
 }
-
     @PostMapping("/divisions/{divisionId}/subclasses/")
     public ResponseEntity addSubclass(@RequestBody Subclass subclass, @PathVariable String divisionId) {
         subclassService.addSubclass(divisionId, subclass);
@@ -62,7 +57,7 @@ public class SubclassController {
     }
 
     @PutMapping("/divisions/{divisionId}/subclasses/{id}")
-    public void updateSubclass(@RequestBody Subclass subclass, @RequestBody String divisionId, @RequestBody String id) {
+    public void updateSubclass(@RequestBody Subclass subclass, @PathVariable String divisionId, @PathVariable String id) {
         subclassService.updateSubclass(id, divisionId, subclass);
     }
 

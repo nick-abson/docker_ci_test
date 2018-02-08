@@ -1,16 +1,12 @@
 package gb.nabs.taxonomyapi.division;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
 // map objects of this class to a table
-// JPA automatically creates a table
 // and can convert instances > rows and vice versa.
-@Entity
 public class Division {
+
     //pk is marked with Id annotation
-    @Id
     private String id;
     private String name;
     private String description;
@@ -21,10 +17,8 @@ public class Division {
         this.description = description;
     }
 
-    public Division()
-    {
+    public Division() { }
 
-    }
     public String getId() {
         return id;
     }

@@ -16,16 +16,11 @@ import java.util.List;
 @RestController
 public class DivisionController {
 
-    // Spring mvc is added to our app by @SpringApplicatioddn
-    //
     // all controllers map a url(html/method) request to a controller object method
-    // we map the two together with annotation, as per the below.
-    // map method to url (by default all HTTP methods are mapped).
     // Spring can inspect incoming requests and if it find a controller in the class path that has a method mapped to it
     // Spring converts the response according to various sensible defaults (e.g because this is a Restfull service, it assumes
     // you want to send json).
     // the json key names are the object property names.
-
 
     //inject the divisionService
     @Autowired
@@ -43,19 +38,14 @@ public class DivisionController {
         return divisionService.getDivision(id);
     }
 
-
-    // use custom properties to map a method to any request that is a POST on /divisions
-    // the above mappings are short cuts for GET
-    // get the body of the request and convert it to a division
+    // map a method to any request that is a POST on /divisions
     // the RequestBody annotation tells spring mvc that the body contains a json  represenation of a division instance and that it should
     // convert it to an instance of Subclass
-    //@RequestMapping(method = RequestMethod.POST , value = "/divisions")
-    // new shorthand:
     @PostMapping("/divisions")
     public ResponseEntity<Void>  addDivision(@RequestBody Division division) {
         divisionService.addDivision(division);
 
-        // use this static method to construct a uri for the the newly created resource
+        // static method to construct a uri for the the newly created resource
         // .path appends to the current request uri - substituting a template variable for the param supplied in buildAndExpand
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(division.getId()).toUri();
         // return a 201 code
