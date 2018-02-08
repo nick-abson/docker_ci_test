@@ -7,9 +7,21 @@
     <artifactId>taxonomy-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-
     <name>taxonomy-api</name>
     <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+
+        <java.version>1.8</java.version>
+        <springfox.version>2.8.0</springfox.version>
+        <postgresql.version>42.2.1</postgresql.version>
+        <rest-assured.version>3.0.6</rest-assured.version>
+        <junit.version>4.12</junit.version>
+    </properties>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -18,18 +30,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <java.version>1.8</java.version>
-        <springfox.version>2.8.0</springfox.version>
-        <postgresql.version>42.2.1</postgresql.version>
-    </properties>
-
     <dependencies>
-
         <!-- spring boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -68,6 +69,19 @@
             <version>${springfox.version}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest-assured.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
