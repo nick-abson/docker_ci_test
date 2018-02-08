@@ -1,6 +1,7 @@
 package gb.nabs.taxonomyapi.subclass;
 
 
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
  * GET /divisions  = get all divisions GET /divisions/id = get specific division POST /divisions = create a new division PUT /divisions/id =
  * update the division DELETE /divisions/delete = delete the division
  */
+@Api(tags = "Sub-classes")
 @RestController
 public class SubclassController {
 

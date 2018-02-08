@@ -1,6 +1,9 @@
 package gb.nabs.taxonomyapi.division;
 
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +16,9 @@ import java.util.List;
  * GET /divisions  = get all divisions GET /divisions/id = get specific division POST /divisions = create a new division PUT /divisions/id =
  * update the division DELETE /divisions/delete = delete the division
  */
+@Api(tags = "Divisions")
 @RestController
+//@ApiOperation(value = "division", notes = "manage divisions")
 public class DivisionController {
 
     // all controllers map a url(html/method) request to a controller object method
@@ -25,7 +30,7 @@ public class DivisionController {
     //inject the divisionService
     @Autowired
     private DivisionService divisionService;
-
+    @ApiOperation(value = "Get all divisions", notes = "all divisions")
     @GetMapping("/divisions")
     public List<Division> getAllDivisions() {
         return divisionService.getAllDivisions();
