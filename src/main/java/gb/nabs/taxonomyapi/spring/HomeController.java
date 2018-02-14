@@ -1,4 +1,4 @@
-package gb.nabs.taxonomyapi;
+package gb.nabs.taxonomyapi.spring;
 
 
 import org.springframework.stereotype.Controller;

@@ -1,6 +1,8 @@
-package gb.nabs.taxonomyapi.subclass;
+package gb.nabs.taxonomyapi.web.controller;
 
 
+import gb.nabs.taxonomyapi.db.model.Subclass;
+import gb.nabs.taxonomyapi.service.SubclassService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

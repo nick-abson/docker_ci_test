@@ -1,4 +1,4 @@
-package gb.nabs.taxonomyapi.division;
+package gb.nabs.taxonomyapi.db.model;
 
 
 

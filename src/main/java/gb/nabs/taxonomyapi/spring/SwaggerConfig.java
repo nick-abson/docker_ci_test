@@ -1,14 +1,12 @@
-package gb.nabs.taxonomyapi;
+package gb.nabs.taxonomyapi.spring;
 
 import com.google.common.base.Predicate;
-import gb.nabs.taxonomyapi.division.DivisionController;
-import gb.nabs.taxonomyapi.subclass.SubclassController;
+import gb.nabs.taxonomyapi.web.controller.DivisionController;
+import gb.nabs.taxonomyapi.web.controller.SubclassController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -61,42 +59,4 @@ public class SwaggerConfig {
         return apiInfo;
     }
 }
-    /*
-	@Bean
-	public Docket petApi() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				.select()
-				.apis(RequestHandlerSelectors.any())
-				.paths(PathSelectors.any())
-				.build()
-				.pathMapping("/")
-				.directModelSubstitute(LocalDate.class,
-						String.class)
-				.genericModelSubstitutes(ResponseEntity.class)
-				.alternateTypeRules(
-						newRule(typeResolver.resolve(DeferredResult.class,
-								typeResolver.resolve(ResponseEntity.class, WildcardType.class)),
-								typeResolver.resolve(WildcardType.class)))
-				.useDefaultResponseMessages(false)
-				.globalResponseMessage(RequestMethod.GET,
-						newArrayList(new ResponseMessageBuilder()
-								.code(500)
-								.message("500 message")
-								.responseModel(new ModelRef("Error"))
-								.build()))
-				.securitySchemes(newArrayList(apiKey()))
-				.securityContexts(newArrayList(securityContext()))
-				.enableUrlTemplating(true)
-				.globalOperationParameters(
-						newArrayList(new ParameterBuilder()
-								.name("someGlobalParameter")
-								.description("Description of someGlobalParameter")
-								.modelRef(new ModelRef("string"))
-								.parameterType("query")
-								.required(true)
-								.build()))
-				.tags(new JCTree.Tag("Pet Service", "All apis relating to pets"))
-				.additionalModels(typeResolver.resolve(AdditionalModel.class))
-				;
-	}
-	*/
+

@@ -1,4 +1,6 @@
-package gb.nabs.taxonomyapi.subclass;
+package gb.nabs.taxonomyapi.db.dao;
+
+import gb.nabs.taxonomyapi.db.model.Subclass;
 
 import java.util.List;
 

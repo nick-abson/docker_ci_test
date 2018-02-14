@@ -1,8 +1,9 @@
-package gb.nabs.taxonomyapi.division;
+package gb.nabs.taxonomyapi.web.controller;
 
 
+import gb.nabs.taxonomyapi.db.model.Division;
+import gb.nabs.taxonomyapi.service.DivisionService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +28,10 @@ public class DivisionController {
     // you want to send json).
     // the json key names are the object property names.
 
-    //inject the divisionService
+    //inject the divisionService (field injection)
     @Autowired
     private DivisionService divisionService;
+
     @ApiOperation(value = "Get all divisions", notes = "all divisions")
     @GetMapping("/divisions")
     public List<Division> getAllDivisions() {

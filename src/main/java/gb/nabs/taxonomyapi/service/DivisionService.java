@@ -1,6 +1,8 @@
-package gb.nabs.taxonomyapi.division;
+package gb.nabs.taxonomyapi.service;
 
 
+import gb.nabs.taxonomyapi.db.dao.DivisionDAO;
+import gb.nabs.taxonomyapi.db.model.Division;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

@@ -16,3 +16,8 @@ java -jar ~/IdeaProjects/taxonomy-api/target/taxonomy-api-0.0.1-SNAPSHOT.jar
 
 mvn compile war:war
 docker cp ~/IdeaProjects/course-api-db/target/<arteefactid>.war tomcat:/usr/local/tomcat/webapps/
+
+# configuration based on spring profiles:
+# either use a vm option e.g -Dspring.profiles.active=dev
+# or export spring_profiles_active=dev
+# or ActiveProfile("dev)

@@ -1,8 +1,7 @@
-package gb.nabs.taxonomyapi.subclass;
+package gb.nabs.taxonomyapi.db.model;
 
 
-import gb.nabs.taxonomyapi.division.Division;
-import gb.nabs.taxonomyapi.division.DivisionService;
+import gb.nabs.taxonomyapi.service.DivisionService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 

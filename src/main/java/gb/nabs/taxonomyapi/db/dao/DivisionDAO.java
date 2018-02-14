@@ -1,4 +1,6 @@
-package gb.nabs.taxonomyapi.division;
+package gb.nabs.taxonomyapi.db.dao;
+
+import gb.nabs.taxonomyapi.db.model.Division;
 
 import java.util.List;
 

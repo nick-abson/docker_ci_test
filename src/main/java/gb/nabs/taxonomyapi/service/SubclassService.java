@@ -1,7 +1,8 @@
-package gb.nabs.taxonomyapi.subclass;
+package gb.nabs.taxonomyapi.service;
 
 
-import gb.nabs.taxonomyapi.division.DivisionService;
+import gb.nabs.taxonomyapi.db.dao.SubclassDAO;
+import gb.nabs.taxonomyapi.db.model.Subclass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
