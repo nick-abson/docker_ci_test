@@ -1,30 +1,31 @@
 package gb.nabs.taxonomyapi.service;
 
 
-import gb.nabs.taxonomyapi.db.dao.DivisionDAO;
+import gb.nabs.taxonomyapi.db.repository.DivisionRepository;
 import gb.nabs.taxonomyapi.db.model.Division;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-// tell spring to create a single instance
-// in spring a business service is usually a singleton
-// when the application starts, Spring starts a single instance and registers it as a service
-// other classes can inject the service - to do this Spring will scan for @Autowired
 @Service
-public class DivisionService implements DivisionDAO {
+public class DivisionService implements DivisionRepository {
 
-    //Inject the JdbcTemplate
-    @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public List<Division> getAllDivisions() {
-        List<Division> divisions = new ArrayList<>();
+    @Autowired
+    public DivisionService(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    ;
+
+    @Override
+    public List<Division> findAll() {
 
         String sql = "SELECT id, name, description FROM division";
 
@@ -36,7 +37,9 @@ public class DivisionService implements DivisionDAO {
 
     }
 
-    public Division getDivision(String id) {
+
+    @Override
+    public Division findById(String id) {
 
         String sql = "SELECT id, name, description FROM division where id = ? ";
 
@@ -45,7 +48,8 @@ public class DivisionService implements DivisionDAO {
     }
 
     // add or replace a resource
-    public void addDivision(Division division) {
+    @Override
+    public void save(Division division) {
 
         //TODO check ID was supplied in body - http error code if not
         String sql = "INSERT INTO division (id, name, description) VALUES (?,?,?) " +
@@ -54,18 +58,22 @@ public class DivisionService implements DivisionDAO {
         this.jdbcTemplate.update(sql, division.getId(), division.getName(), division.getName());
     }
 
-    // save a resource where you know the resource uri
-    public void updateDivision(Division division, String id) {
-        // ignore any id supplied in the body of the request
-        division.setId(id);
-        this.addDivision(division);
-    }
-
-    public void deleteDivision(String id) {
+    @Override
+    public void deleteById(String id) {
         String sql = "DELETE FROM subclass WHERE division_id = ?";
         this.jdbcTemplate.update(sql, id);
 
         sql = "DELETE FROM division WHERE id = ?";
         this.jdbcTemplate.update(sql, id);
+    }
+
+    @Override
+    public boolean existsById(String id) {
+        String sql = "SELECT count(*) FROM division WHERE id = ?";
+        int count = this.jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
+        if (count == 0)
+            return false;
+        else
+            return true;
     }
 }

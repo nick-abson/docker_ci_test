@@ -81,6 +81,12 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- local db -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 
     </dependencies>
 

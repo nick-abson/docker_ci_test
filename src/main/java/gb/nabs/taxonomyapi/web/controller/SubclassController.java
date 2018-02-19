@@ -2,6 +2,7 @@ package gb.nabs.taxonomyapi.web.controller;
 
 
 import gb.nabs.taxonomyapi.db.model.Subclass;
+import gb.nabs.taxonomyapi.service.DivisionService;
 import gb.nabs.taxonomyapi.service.SubclassService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +14,13 @@ import java.net.URI;
 import java.util.List;
 
 /**
- * GET /divisions  = get all divisions GET /divisions/id = get specific division POST /divisions = create a new division PUT /divisions/id =
- * update the division DELETE /divisions/delete = delete the division
+ * GET /divisions  = get all divisions GET /divisions/id = get specific division POST /divisions = create a new division
+ * PUT /divisions/id = update the division DELETE /divisions/deleteById = deleteById the division
  */
 @Api(tags = "Sub-classes")
 @RestController
 public class SubclassController {
 
-    // Spring mvc is added to our app by @SpringApplicatioddn
-    //
     // all controllers map a url(html/method) request to a controller object method
     // we map the two together with annotation, as per the below.
     // map method to url (by default all HTTP methods are mapped).
@@ -31,38 +30,52 @@ public class SubclassController {
     // the json key names are the object property names.
 
 
-    //inject the SubclassService service
+    private final SubclassService subclassService;
+    private final DivisionService divisionService;
+
     @Autowired
-    private SubclassService subclassService;
+    public SubclassController(SubclassService subclassService, DivisionService divisionService) {
+        this.subclassService = subclassService;
+        this.divisionService = divisionService;
+    }
 
     @GetMapping("/divisions/{divisionId}/subclasses")
     public List<Subclass> getAllSubclasses(@PathVariable String divisionId) {
-        return subclassService.getAllSubclasses(divisionId);
+        return subclassService.findAll(divisionId);
     }
 
     @GetMapping("/divisions/{divisionId}/subclasses/{id}")
     public Subclass getSubclass(@PathVariable String id) {
-        return subclassService.getSubclass(id);
+        return subclassService.findById(id);
 
-}
+    }
+
     @PostMapping("/divisions/{divisionId}/subclasses/")
     public ResponseEntity addSubclass(@RequestBody Subclass subclass, @PathVariable String divisionId) {
-        subclassService.addSubclass(divisionId, subclass);
-        // use this static method to construct a uri for the the newly created resource
-        // .path appends to the current request uri - substituting a template variable for the param supplied in buildAndExpand
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("{id}").buildAndExpand(subclass.getId()).toUri();
+
+        // TODO check division id is valid and not contradicted by body
+        subclass.setDivision(divisionService.findById(divisionId));
+
+        subclassService.save(subclass);
+
         // return a 201 code
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("{id}").buildAndExpand(subclass.getId()).toUri();
         return ResponseEntity.created(location).build();
     }
 
     @DeleteMapping("divisions/subclasses/{id}")
     public void deleteSubclass(@PathVariable String id) {
-       subclassService.deleteSubclass(id);
+        subclassService.deleteById(id);
     }
 
     @PutMapping("/divisions/{divisionId}/subclasses/{id}")
     public void updateSubclass(@RequestBody Subclass subclass, @PathVariable String divisionId, @PathVariable String id) {
-        subclassService.updateSubclass(id, divisionId, subclass);
+        // TODO check division id/subclass id is valid and not contradicted by body
+        subclass.setId(id);
+
+        subclass.setDivision(divisionService.findById(divisionId));
+
+        subclassService.save(subclass);
     }
 
 }

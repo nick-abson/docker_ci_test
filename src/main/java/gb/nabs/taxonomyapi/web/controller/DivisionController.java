@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * GET /divisions  = get all divisions GET /divisions/id = get specific division POST /divisions = create a new division PUT /divisions/id =
- * update the division DELETE /divisions/delete = delete the division
+ * update the division DELETE /divisions/deleteById = deleteById the division
  */
 @Api(tags = "Divisions")
 @RestController
@@ -35,14 +35,14 @@ public class DivisionController {
     @ApiOperation(value = "Get all divisions", notes = "all divisions")
     @GetMapping("/divisions")
     public List<Division> getAllDivisions() {
-        return divisionService.getAllDivisions();
+        return divisionService.findAll();
     }
 
     // syntax for matching a variable in the request is {}
     // the @PathVariable annotation tells spring to pass in the variable as a parameter
     @GetMapping("/divisions/{id}")
     public Division getDivision(@PathVariable String id) {
-        return divisionService.getDivision(id);
+        return divisionService.findById(id);
     }
 
     // map a method to any request that is a POST on /divisions
@@ -50,7 +50,7 @@ public class DivisionController {
     // convert it to an instance of Subclass
     @PostMapping("/divisions")
     public ResponseEntity<Void>  addDivision(@RequestBody Division division) {
-        divisionService.addDivision(division);
+        divisionService.save(division);
 
         // static method to construct a uri for the the newly created resource
         // .path appends to the current request uri - substituting a template variable for the param supplied in buildAndExpand
@@ -61,12 +61,16 @@ public class DivisionController {
 
     @DeleteMapping("divisions/{id}")
     public void deleteDivision(@PathVariable String id) {
-       divisionService.deleteDivision(id);
+       divisionService.deleteById(id);
     }
 
     @PutMapping("/divisions/{id}")
     public void updateDivision(@RequestBody Division division, @PathVariable String id) {
-        divisionService.updateDivision(division, id);
+        // replace the resource at this specified uri
+        // TODO check body to confirm that no (inconsistent) division id was supplied
+
+        division.setId(id);
+        divisionService.save(division);
     }
 
 }

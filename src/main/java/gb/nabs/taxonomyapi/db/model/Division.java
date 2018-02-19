@@ -1,9 +1,5 @@
 package gb.nabs.taxonomyapi.db.model;
 
-
-
-// map objects of this class to a table
-// and can convert instances > rows and vice versa.
 public class Division {
 
     //pk is marked with Id annotation

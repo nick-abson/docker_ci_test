@@ -13,11 +13,12 @@ public class Subclass {
     @Autowired
     private DivisionService divisionService;
 
-    public Subclass(String id, String name, String description, String divisionId) {
-        this.division = divisionService.getDivision(divisionId);
+    public Subclass(String id, String name, String description, Division division) {
+
         this.id = id;
         this.name = name;
         this.description = description;
+        this.division = division;
     }
 
     public Subclass()
