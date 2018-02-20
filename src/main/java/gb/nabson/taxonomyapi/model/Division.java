@@ -1,4 +1,4 @@
-package gb.nabs.taxonomyapi.db.model;
+package gb.nabson.taxonomyapi.model;
 
 public class Division {
 

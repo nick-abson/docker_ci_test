@@ -1,17 +1,17 @@
-package gb.nabs.taxonomyapi.web.controller;
+package gb.nabson.taxonomyapi.web.controller;
 
 
-import gb.nabs.taxonomyapi.db.model.Division;
-import gb.nabs.taxonomyapi.service.DivisionService;
+import gb.nabson.taxonomyapi.model.Division;
+import gb.nabson.taxonomyapi.service.DivisionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 /**
  * GET /divisions  = get all divisions GET /divisions/id = get specific division POST /divisions = create a new division PUT /divisions/id =
@@ -19,38 +19,33 @@ import java.util.List;
  */
 @Api(tags = "Divisions")
 @RestController
-//@ApiOperation(value = "division", notes = "manage divisions")
 public class DivisionController {
-
-    // all controllers map a url(html/method) request to a controller object method
-    // Spring can inspect incoming requests and if it find a controller in the class path that has a method mapped to it
-    // Spring converts the response according to various sensible defaults (e.g because this is a Restfull service, it assumes
-    // you want to send json).
-    // the json key names are the object property names.
-
-    //inject the divisionService (field injection)
-    @Autowired
     private DivisionService divisionService;
+
+    @Autowired
+    public DivisionController(DivisionService divisionService) {
+        this.divisionService = divisionService;
+    }
 
     @ApiOperation(value = "Get all divisions", notes = "all divisions")
     @GetMapping("/divisions")
-    public List<Division> getAllDivisions() {
-        return divisionService.findAll();
+    public Iterable<Division> getAllDivisions() {
+        return divisionService.getAllDivisions();
     }
 
     // syntax for matching a variable in the request is {}
-    // the @PathVariable annotation tells spring to pass in the variable as a parameter
+    // the @PathVariable annotation tells config to pass in the variable as a parameter
     @GetMapping("/divisions/{id}")
-    public Division getDivision(@PathVariable String id) {
-        return divisionService.findById(id);
+    public Division getDivisionById(@PathVariable String id) {
+        return divisionService.getDivisionById(id);
     }
 
     // map a method to any request that is a POST on /divisions
-    // the RequestBody annotation tells spring mvc that the body contains a json  represenation of a division instance and that it should
+    // the RequestBody annotation tells config mvc that the body contains a json  represenation of a division instance and that it should
     // convert it to an instance of Subclass
     @PostMapping("/divisions")
     public ResponseEntity<Void>  addDivision(@RequestBody Division division) {
-        divisionService.save(division);
+        divisionService.saveDivision(division);
 
         // static method to construct a uri for the the newly created resource
         // .path appends to the current request uri - substituting a template variable for the param supplied in buildAndExpand
@@ -61,7 +56,7 @@ public class DivisionController {
 
     @DeleteMapping("divisions/{id}")
     public void deleteDivision(@PathVariable String id) {
-       divisionService.deleteById(id);
+       divisionService.deleteDivisionById(id);
     }
 
     @PutMapping("/divisions/{id}")
@@ -70,7 +65,7 @@ public class DivisionController {
         // TODO check body to confirm that no (inconsistent) division id was supplied
 
         division.setId(id);
-        divisionService.save(division);
+        divisionService.saveDivision(division);
     }
 
 }

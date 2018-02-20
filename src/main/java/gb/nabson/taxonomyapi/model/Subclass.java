@@ -1,7 +1,7 @@
-package gb.nabs.taxonomyapi.db.model;
+package gb.nabson.taxonomyapi.model;
 
 
-import gb.nabs.taxonomyapi.service.DivisionService;
+import gb.nabson.taxonomyapi.persistance.repository.DivisionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -11,7 +11,7 @@ public class Subclass {
     private String name;
     private String description;
     @Autowired
-    private DivisionService divisionService;
+    private DivisionRepository divisionRepositoryImpl;
 
     public Subclass(String id, String name, String description, Division division) {
 

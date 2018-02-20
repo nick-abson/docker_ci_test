@@ -1,9 +1,9 @@
-package gb.nabs.taxonomyapi.init;
+package gb.nabson.taxonomyapi.init;
 
-import gb.nabs.taxonomyapi.db.model.Division;
-import gb.nabs.taxonomyapi.db.model.Subclass;
-import gb.nabs.taxonomyapi.service.DivisionService;
-import gb.nabs.taxonomyapi.service.SubclassService;
+import gb.nabson.taxonomyapi.model.Division;
+import gb.nabson.taxonomyapi.model.Subclass;
+import gb.nabson.taxonomyapi.persistance.repository.DivisionRepository;
+import gb.nabson.taxonomyapi.persistance.repository.JdbcSubclassRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,22 +17,22 @@ import org.springframework.stereotype.Component;
  * load dev data when on dev profile
  */
 
-// make sure class is wired up for spring context
+// make sure class is wired up for config context
 @Component
 // run for dev profile only
 @Profile("dev")
 public class InitDevEnv implements ApplicationListener<ContextRefreshedEvent> {
-    private static final String ACTIVE_SPRING_PROFILE_KEY = "spring.profiles.active";
+    private static final String ACTIVE_SPRING_PROFILE_KEY = "config.profiles.active";
 
-    private DivisionService divisionService;
-    private SubclassService subclassService;
+    private DivisionRepository divisionRepositoryImpl;
+    private JdbcSubclassRepository jdbcSubclassRepository;
     private Environment env;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    public InitDevEnv(DivisionService divisionService, SubclassService subclassService, Environment env) {
-        this.divisionService = divisionService;
-        this.subclassService = subclassService;
+    public InitDevEnv(DivisionRepository divisionRepositoryImpl, JdbcSubclassRepository jdbcSubclassRepository, Environment env) {
+        this.divisionRepositoryImpl = divisionRepositoryImpl;
+        this.jdbcSubclassRepository = jdbcSubclassRepository;
         this.env = env;
     }
 
@@ -51,9 +51,9 @@ public class InitDevEnv implements ApplicationListener<ContextRefreshedEvent> {
         Subclass subclassA = new Subclass("l2a", "level2a", "level 2a", division);
         Subclass subclassB = new Subclass("l2b", "level2b", "level 2b", division);
 
-        divisionService.save(division);
-        subclassService.save(subclassA);
-        subclassService.save(subclassB);
+        divisionRepositoryImpl.save(division);
+        jdbcSubclassRepository.save(subclassA);
+        jdbcSubclassRepository.save(subclassB);
 
     }
 }

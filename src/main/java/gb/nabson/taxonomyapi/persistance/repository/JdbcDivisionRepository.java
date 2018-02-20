@@ -1,28 +1,26 @@
-package gb.nabs.taxonomyapi.service;
+package gb.nabson.taxonomyapi.persistance.repository;
 
 
-import gb.nabs.taxonomyapi.db.repository.DivisionRepository;
-import gb.nabs.taxonomyapi.db.model.Division;
+import gb.nabson.taxonomyapi.model.Division;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class DivisionService implements DivisionRepository {
+@Repository
+@Primary  // use @Qualifier("DivisionRepositoryBlah") in constructor to override)
+public class JdbcDivisionRepository implements DivisionRepository {
 
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public DivisionService(JdbcTemplate jdbcTemplate) {
+    public JdbcDivisionRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
-    ;
 
     @Override
     public List<Division> findAll() {

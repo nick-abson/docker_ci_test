@@ -31,12 +31,12 @@
     </parent>
 
     <dependencies>
-        <!-- spring boot -->
+        <!-- config boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-        <!-- spring-boot-starter-web has built in jackson-databind (json<>java) -->
+        <!-- config-boot-starter-web has built in jackson-databind (json<>java) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -81,7 +81,7 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- local db -->
+        <!-- local persistance -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>

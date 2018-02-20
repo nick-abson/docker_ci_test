@@ -1,6 +1,6 @@
-package gb.nabs.taxonomyapi.db.repository;
+package gb.nabson.taxonomyapi.persistance.repository;
 
-import gb.nabs.taxonomyapi.db.model.Subclass;
+import gb.nabson.taxonomyapi.model.Subclass;
 
 public interface SubclassRepository {
     Iterable<Subclass> findAll(String divisionId);

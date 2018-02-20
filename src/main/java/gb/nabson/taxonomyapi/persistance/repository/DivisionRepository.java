@@ -1,6 +1,6 @@
-package gb.nabs.taxonomyapi.db.repository;
+package gb.nabson.taxonomyapi.persistance.repository;
 
-import gb.nabs.taxonomyapi.db.model.Division;
+import gb.nabson.taxonomyapi.model.Division;
 
 public interface DivisionRepository {
     Iterable<Division> findAll();

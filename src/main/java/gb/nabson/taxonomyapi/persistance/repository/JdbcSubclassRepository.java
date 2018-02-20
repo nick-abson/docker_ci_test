@@ -1,27 +1,28 @@
-package gb.nabs.taxonomyapi.service;
+package gb.nabson.taxonomyapi.persistance.repository;
 
-import gb.nabs.taxonomyapi.db.repository.SubclassRepository;
-import gb.nabs.taxonomyapi.db.model.Subclass;
+import gb.nabson.taxonomyapi.model.Subclass;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
+
 import java.util.List;
 
-@Service
 @Repository
-public class SubclassService implements SubclassRepository {
+
+@Primary // use @Qualifier("subclassRepositoryBlah") in constructor to override
+public class JdbcSubclassRepository implements SubclassRepository {
 
     private final JdbcTemplate jdbcTemplate ;
-    private final DivisionService divisionService;
+    private final DivisionRepository divisionRepository;
 
     @Autowired
-    public SubclassService (JdbcTemplate jdbcTemplate, DivisionService divisionService)
+    public JdbcSubclassRepository(JdbcTemplate jdbcTemplate, JdbcDivisionRepository divisionRepository)
     {
         this.jdbcTemplate=jdbcTemplate;
-        this.divisionService=divisionService;
+        this.divisionRepository = divisionRepository;
     };
 
 
