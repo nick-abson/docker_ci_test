@@ -21,3 +21,12 @@ docker cp ~/IdeaProjects/course-api-db/target/<arteefactid>.war tomcat:/usr/loca
 # either use a vm option e.g -Dspring.profiles.active=dev
 # or export spring_profiles_active=dev
 # or ActiveProfile("dev)
+
+# see param options
+mvn spring-boot:help -Ddetail=true 
+
+# see spring boot auto-config, e.g matched dependencies
+mvn spring-boot:run -Drun.arguments=--debug
+
+
+

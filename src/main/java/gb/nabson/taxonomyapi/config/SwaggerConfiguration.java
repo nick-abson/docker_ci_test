@@ -23,7 +23,7 @@ import static springfox.documentation.builders.PathSelectors.regex;
         DivisionController.class,
         SubclassController.class
 })
-public class SwaggerConfig {
+public class SwaggerConfiguration {
     //initialize springfox config
     @Bean
     public Docket api() {
