@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -33,16 +34,11 @@ public class DivisionController {
         return divisionService.getAllDivisions();
     }
 
-    // syntax for matching a variable in the request is {}
-    // the @PathVariable annotation tells config to pass in the variable as a parameter
     @GetMapping("/divisions/{id}")
     public Division getDivisionById(@PathVariable String id) {
         return divisionService.getDivisionById(id);
     }
 
-    // map a method to any request that is a POST on /divisions
-    // the RequestBody annotation tells config mvc that the body contains a json  represenation of a division instance and that it should
-    // convert it to an instance of Subclass
     @PostMapping("/divisions")
     public ResponseEntity<Void>  addDivision(@RequestBody Division division) {
         divisionService.saveDivision(division);

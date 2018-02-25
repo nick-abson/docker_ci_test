@@ -21,6 +21,8 @@
         <postgresql.version>42.2.1</postgresql.version>
         <rest-assured.version>3.0.6</rest-assured.version>
         <junit.version>4.12</junit.version>
+        <bootstrap.version>3.3.7</bootstrap.version>
+        <jquery.version>3.1.1</jquery.version>
     </properties>
 
     <parent>
@@ -48,6 +50,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
         <!-- database -->
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -68,6 +78,18 @@
             <version>${springfox.version}</version>
             <scope>compile</scope>
         </dependency>
+        <!--WebJars-->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${bootstrap.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>${jquery.version}</version>
+        </dependency>
+
         <!-- testing -->
         <dependency>
             <groupId>io.rest-assured</groupId>

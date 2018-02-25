@@ -28,5 +28,6 @@ mvn spring-boot:help -Ddetail=true
 # see spring boot auto-config, e.g matched dependencies
 mvn spring-boot:run -Drun.arguments=--debug
 
-
-
+#       spring-boot-starter-web
+# reload classes dynamically, automatic refresh of html content (via livereload - cmd F9 to see html changes)
+# intellij build project automtatically, connect
