@@ -34,4 +34,8 @@ public class DivisionService {
     public boolean checkDivisionExistsById(String id) {
         return divisionRepository.existsById(id);
     }
+
+    public long countDivisions(){
+        return divisionRepository.count();
+    }
 }

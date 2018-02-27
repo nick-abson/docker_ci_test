@@ -19,12 +19,6 @@ public class HomeController {
         this.divisionService = divisionService;
     }
 
-    @RequestMapping("/doc")
-    public String doc() {
-        return "redirect:swagger-ui.html";
-    }
-
-
     @RequestMapping({"/","" })
     public String home(Model model ) {
         model.addAttribute("divisions", divisionService.getAllDivisions());

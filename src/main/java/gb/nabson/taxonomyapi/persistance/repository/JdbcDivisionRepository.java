@@ -66,6 +66,13 @@ public class JdbcDivisionRepository implements DivisionRepository {
     }
 
     @Override
+    public long count() {
+        String sql = "SELECT COUNT(*) FROM division";
+        RowMapper<Long> rowMapper = new BeanPropertyRowMapper<>(Long.class);
+        return jdbcTemplate.queryForObject(sql,rowMapper );
+    }
+
+    @Override
     public boolean existsById(String id) {
         String sql = "SELECT count(*) FROM division WHERE id = ?";
         int count = this.jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);

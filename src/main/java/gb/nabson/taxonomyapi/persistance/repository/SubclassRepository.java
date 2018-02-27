@@ -7,4 +7,5 @@ public interface SubclassRepository {
     Subclass findById(String id);
     void save(Subclass subclass);
     void deleteById(String id);
+    long count(String divisionId);
 }

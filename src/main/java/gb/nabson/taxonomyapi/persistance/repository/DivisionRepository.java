@@ -8,4 +8,5 @@ public interface DivisionRepository {
     void save(Division division);
     void deleteById(String id);
     boolean existsById(String id);
+    long count();
 }

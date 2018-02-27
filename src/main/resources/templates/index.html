@@ -38,10 +38,9 @@
                             </tr>
                             </thead>
                             <tr th:each="division : ${divisions}">
-                                <td th:text="${division.id}"/>
-                                <td th:text="${division.name}"/>
-                                <td th:text="${division.description}"/>
-                                <!-- <td><a href="/divisions/${division.id}" th:text="beep/${division.id}">Title ...</a></td> -->
+                                <td th:text="${division.id}">id</td>
+                                <td th:text="${division.name}">name</td>
+                                <td th:text="${division.description}">description</td>
                                 <td><a th:href="@{'/divisions/'+${division.id}}">json</a></td>
                             </tr>
                         </table>

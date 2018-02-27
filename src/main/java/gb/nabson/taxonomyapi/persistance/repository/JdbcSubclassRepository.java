@@ -59,4 +59,11 @@ public class JdbcSubclassRepository implements SubclassRepository {
         String sql = "DELETE FROM subclass WHERE id = ?";
         this.jdbcTemplate.update(sql, id);
     }
+
+    @Override
+    public long count(String divisionId) {
+        String sql = "SELECT COUNT(*) FROM subclass where division_id = ?";
+        RowMapper<Long> rowMapper = new BeanPropertyRowMapper<>(Long.class);
+        return jdbcTemplate.queryForObject(sql,rowMapper, divisionId);
+    }
 }

@@ -23,6 +23,7 @@
         <junit.version>4.12</junit.version>
         <bootstrap.version>3.3.7</bootstrap.version>
         <jquery.version>3.1.1</jquery.version>
+        <failsafe.version>2.20</failsafe.version>
     </properties>
 
     <parent>
@@ -92,12 +93,6 @@
 
         <!-- testing -->
         <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>${rest-assured.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
@@ -112,6 +107,28 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>${failsafe.version}</version>
+            <configuration>
+                <includes>
+                    <include>**/*IT.java</include>
+                </includes>
+                <additionalClasspathElements>
+                    <additionalClasspathElement>${basedir}/target/classes</additionalClasspathElement>
+                </additionalClasspathElements>
+                <parallel>none</parallel>
+            </configuration>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>integration-test</goal>
+                        <goal>verify</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
         </plugins>
     </build>
 
