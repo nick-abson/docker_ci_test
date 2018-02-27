@@ -1,6 +1,5 @@
 package gb.nabson.taxonomyapi.web.controller;
 
-
 import gb.nabson.taxonomyapi.model.Division;
 import gb.nabson.taxonomyapi.service.DivisionService;
 import io.swagger.annotations.Api;
@@ -63,6 +62,7 @@ public class DivisionController {
         division.setId(id);
         divisionService.saveDivision(division);
     }
+
 
 }
 

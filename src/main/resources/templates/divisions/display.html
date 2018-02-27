@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Divisions Display </title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+
+    <link href="../static/css/app.css" th:href="@{/static/css/app.css}" rel="stylesheet" media="screen"/>
+
+</head>
+<body>
+<div>
+    <h2> Divisions</h2>
+    <p class="lead"> docker/jenkins test </p>
+    <p class="lead"> <a href="/" class="btn btn-info"><i class="glyphicon glyphicon-info-sign"></i> back</a> </p>
+</div>
+
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1 class="panel-title">DIVISIONS</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive" th:if="${not #lists.isEmpty(divisions)}">
+                        <table class="table table-hover">
+                            <thead class="thead-inverse">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tr th:each="division : ${divisions}">
+                                <td th:text="${division.id}">id</td>
+                                <td th:text="${division.name}">name</td>
+                                <td th:text="${division.description}">description</td>
+                                <td><a th:href="@{'/divisions/'+${division.id}}">json</a></td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="http://cdn.jsdelivr.net/webjars/jquery/3.1.1/jquery.min.js"
+        th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+
+<script type="text/javascript" src="../js/app.js"
+        th:src="@{/js/app.js}"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        th:src="@{webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+</body>
+</html>

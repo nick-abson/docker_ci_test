@@ -12,16 +12,9 @@ import java.util.List;
 
 @Controller
 public class HomeController {
-    private DivisionService divisionService;
 
-    @Autowired
-    public HomeController(DivisionService divisionService) {
-        this.divisionService = divisionService;
-    }
-
-    @RequestMapping({"/","" })
-    public String home(Model model ) {
-        model.addAttribute("divisions", divisionService.getAllDivisions());
+    @RequestMapping({"/"})
+    public String index() {
         return "index";
     }
 }

@@ -27,7 +27,7 @@ public class DivisionRepositoryIT {
     String description = "test_description_#1";
 
     @Test
-    public void save() throws Exception {
+    public void testSave() throws Exception {
         Division division = new Division();
         division.setId(id);
         division.setName(name);
