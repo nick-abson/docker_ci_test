@@ -12,20 +12,23 @@
 
 </head>
 <body>
+
 <div>
     <h2> Demo api </h2>
     <p class="lead"> docker/jenkins test </p>
 </div>
 
+<!--/*@thymesVar id="subclass" type="gb.nabson.taxonomyapi.model.Subclass"*/-->
+<!--/*@thymesVar id="Division" type="gb.nabson.taxonomyapi.model.Division"*/-->
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h1 class="panel-title">DIVISIONS</h1>
+                    <h1 class="panel-title" th:text="'SUBCLASSES: '+${division.id}">SUBCLASSES</h1>
                 </div>
                 <div class="panel-body">
-                    <div class="table-responsive" th:if="${not #lists.isEmpty(divisions)}">
+                    <div class="table-responsive" th:if="${not #lists.isEmpty(subclasses)}">
                         <table class="table table-hover">
                             <thead class="thead-inverse">
                             <tr>
@@ -34,12 +37,12 @@
                                 <th>Description</th>
                             </tr>
                             </thead>
-                            <tr th:each="division : ${divisions}">
-                                <td th:text="${division.id}">id</td>
-                                <td th:text="${division.name}">name</td>
-                                <td th:text="${division.description}">description</td>
-                                <td><a th:href="@{'/divisions/'+${division.id}}">json</a></td>
-                                <td><a th:href="@{'/divisions/'+${division.id}+'/subclasses/display'}">subclasses</a></td>
+                            <tr th:each="subclass : ${subclasses}">
+                                <td th:text="${subclass.id}">id</td>
+                                <td th:text="${subclass.name}">name</td>
+                                <td th:text="${subclass.description}">description</td>
+                                <td><a th:href="@{'/divisions/'+${division.id}}+'/subclasses'">json</a></td>
+
                             </tr>
                         </table>
 

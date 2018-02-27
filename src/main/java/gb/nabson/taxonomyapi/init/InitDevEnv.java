@@ -3,7 +3,7 @@ package gb.nabson.taxonomyapi.init;
 import gb.nabson.taxonomyapi.model.Division;
 import gb.nabson.taxonomyapi.model.Subclass;
 import gb.nabson.taxonomyapi.persistance.repository.DivisionRepository;
-import gb.nabson.taxonomyapi.persistance.repository.JdbcSubclassRepository;
+import gb.nabson.taxonomyapi.persistance.repository.SubclassRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +24,15 @@ import org.springframework.stereotype.Component;
 public class InitDevEnv implements ApplicationListener<ContextRefreshedEvent> {
     private static final String ACTIVE_SPRING_PROFILE_KEY = "config.profiles.active";
 
-    private DivisionRepository divisionRepositoryImpl;
-    private JdbcSubclassRepository jdbcSubclassRepository;
+    private DivisionRepository divisionRepository;
+    private SubclassRepository subclassRepository;
     private Environment env;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    public InitDevEnv(DivisionRepository divisionRepositoryImpl, JdbcSubclassRepository jdbcSubclassRepository, Environment env) {
-        this.divisionRepositoryImpl = divisionRepositoryImpl;
-        this.jdbcSubclassRepository = jdbcSubclassRepository;
+    public InitDevEnv(DivisionRepository divisionRepository, SubclassRepository subclassRepository, Environment env) {
+        this.divisionRepository= divisionRepository;
+        this.subclassRepository = subclassRepository;
         this.env = env;
     }
 
@@ -51,9 +51,9 @@ public class InitDevEnv implements ApplicationListener<ContextRefreshedEvent> {
         Subclass subclassA = new Subclass("l2a", "level2a", "level 2a", division);
         Subclass subclassB = new Subclass("l2b", "level2b", "level 2b", division);
 
-        divisionRepositoryImpl.save(division);
-        jdbcSubclassRepository.save(subclassA);
-        jdbcSubclassRepository.save(subclassB);
+        divisionRepository.save(division);
+        subclassRepository.save(subclassA);
+        subclassRepository.save(subclassB);
 
     }
 }

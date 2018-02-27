@@ -20,10 +20,8 @@ public class DivisionDisplayController {
     @GetMapping("/divisions/display")
     public String displayAllDivisions(Model model) {
         model.addAttribute("divisions", divisionService.getAllDivisions());
-
         return "divisions/display";
     }
 
 }
-
 

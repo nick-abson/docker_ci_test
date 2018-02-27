@@ -1,4 +1,4 @@
-package gb.nabson.taxonomyapi.web.controller;
+package gb.nabson.taxonomyapi.rest.controller;
 
 import gb.nabson.taxonomyapi.model.Division;
 import gb.nabson.taxonomyapi.service.DivisionService;

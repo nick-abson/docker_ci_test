@@ -16,15 +16,15 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = { "spring.profiles.active: qa" })
 public class DivisionRepositoryIT {
 
     @Autowired
     DivisionRepository divisionRepository ;
 
-    String id = "test_id_#1";
-    String name = "test_name_#1";
-    String description = "test_description_#1";
+    String id = "test_id_1";
+    String name = "test_name_1";
+    String description = "test_description_1";
 
     @Test
     public void testSave() throws Exception {

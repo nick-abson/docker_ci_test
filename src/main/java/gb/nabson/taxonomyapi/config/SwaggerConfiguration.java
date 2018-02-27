@@ -1,8 +1,8 @@
 package gb.nabson.taxonomyapi.config;
 
 import com.google.common.base.Predicate;
-import gb.nabson.taxonomyapi.web.controller.DivisionController;
-import gb.nabson.taxonomyapi.web.controller.SubclassController;
+import gb.nabson.taxonomyapi.rest.controller.DivisionController;
+import gb.nabson.taxonomyapi.rest.controller.SubclassController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
