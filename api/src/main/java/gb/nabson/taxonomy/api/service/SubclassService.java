@@ -1,33 +1,44 @@
 package gb.nabson.taxonomy.api.service;
 
-import gb.nabson.taxonomy.api.repository.SubclassRepository;
+import gb.nabson.taxonomy.api.dto.model.v1.mapper.SubclassMapper;
+import gb.nabson.taxonomy.api.dto.model.v1.model.SubclassDTO;
 import gb.nabson.taxonomy.api.model.Subclass;
+import gb.nabson.taxonomy.api.repository.SubclassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SubclassService {
     private SubclassRepository subclassRepository;
+    private SubclassMapper subclassMapper;
 
-    @Autowired  // inject @Primary implementation
-    public SubclassService(SubclassRepository subclassRepository) {
+    @Autowired
+    public SubclassService(SubclassRepository subclassRepository, SubclassMapper subclassMapper) {
         this.subclassRepository = subclassRepository;
+        this.subclassMapper = subclassMapper;
     }
 
-    public Iterable<Subclass> getAllSubclasses(String divisionId) {
-        return subclassRepository.findAll(divisionId);
+
+    public List<SubclassDTO> getAllSubclasses(String divisionId) {
+        return subclassRepository.findAll(divisionId)
+                .stream()
+                .map(subclassMapper::subclassToSubclassDTO)
+                .collect(Collectors.toList());
     }
 
-    public Subclass getSubclassById(String id) {
-        return subclassRepository.findById(id);
+    public SubclassDTO getSubclassById(String id) {
+        return  subclassMapper.subclassToSubclassDTO( ( subclassRepository.findById(id)));
     }
 
-    public void saveSubclass(Subclass subclass) {
-        subclassRepository.save(subclass);
+    public void saveSubclass(SubclassDTO subclassDTO) {
+        subclassRepository.save(subclassMapper.subclassDtoToSubclass( subclassDTO) );
     }
 
     public void deleteSubclassById(String id) {
-        subclassRepository.deleteById(id);
+                subclassRepository.deleteById(id);
     }
 
 }

@@ -1,6 +1,6 @@
 package gb.nabson.taxonomy.api.model;
 
-public class Division {
+public class Division{
 
     private String id;
     private String name;

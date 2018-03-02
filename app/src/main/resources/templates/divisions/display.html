@@ -34,7 +34,7 @@
                                 <th>Description</th>
                             </tr>
                             </thead>
-                            <tr th:each="division : ${divisions}">
+                            <tr th:each="division : ${divisions.divisions}">
                                 <td th:text="${division.id}">id</td>
                                 <td th:text="${division.name}">name</td>
                                 <td th:text="${division.description}">description</td>

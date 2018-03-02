@@ -1,13 +1,13 @@
-package gb.nabson.taxonomy.api.model;
+package gb.nabson.taxonomy.api.dto.model.v1.model;
 
 
-public class Subclass{
+public class SubclassDTO {
     private String id;
-    private Division division;
+    private DivisionDTO division;
     private String name;
     private String description;
 
-    public Subclass(String id, String name, String description, Division division) {
+    public SubclassDTO(String id, String name, String description, DivisionDTO division) {
 
         this.id = id;
         this.name = name;
@@ -15,16 +15,13 @@ public class Subclass{
         this.division = division;
     }
 
-    public Subclass()
-    {
+    public SubclassDTO() {}
 
-    }
-
-    public Division getDivision() {
+    public DivisionDTO getDivision() {
         return division;
     }
 
-    public void setDivision(Division division) {
+    public void setDivision(DivisionDTO division) {
         this.division = division;
     }
 

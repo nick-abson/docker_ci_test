@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+
 @Repository
 
 @Primary // use @Qualifier("subclassRepositoryBlah") in constructor to override

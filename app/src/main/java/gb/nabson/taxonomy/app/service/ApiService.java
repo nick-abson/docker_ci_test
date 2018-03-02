@@ -1,7 +1,9 @@
 package gb.nabson.taxonomy.app.service;
 
 import gb.nabson.taxonomy.app.api.model.Division;
+import gb.nabson.taxonomy.app.api.model.DivisionList;
 import gb.nabson.taxonomy.app.api.model.Subclass;
+import gb.nabson.taxonomy.app.api.model.SubclassList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +29,7 @@ public class ApiService {
         this.api_url = api_url;
     }
 
-    public Subclass[] getSubclasses(String divisionId) {
+    public SubclassList getSubclasses(String divisionId) {
         String url = String.format("%s/%s/subclasses", api_url,divisionId);
 
         //todo add pagination
@@ -37,11 +39,11 @@ public class ApiService {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<Subclass[]> responseEntity =
-                restTemplate.getForEntity(uriBuilder.toUriString(),Subclass[].class);
+        ResponseEntity<SubclassList> responseEntity =
+                restTemplate.getForEntity(uriBuilder.toUriString(),SubclassList.class);
         return responseEntity.getBody();
     }
-    public Division[] getDivisions() {
+    public DivisionList getDivisions() {
 
         //todo add pagination
         UriComponentsBuilder uriBuilder = UriComponentsBuilder
@@ -49,8 +51,8 @@ public class ApiService {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<Division[]> responseEntity =
-                restTemplate.getForEntity(uriBuilder.toUriString(),Division[].class);
+        ResponseEntity<DivisionList> responseEntity =
+                restTemplate.getForEntity(uriBuilder.toUriString(),DivisionList.class);
         return responseEntity.getBody();
     }
     public Division getDivision(String divisionId) {

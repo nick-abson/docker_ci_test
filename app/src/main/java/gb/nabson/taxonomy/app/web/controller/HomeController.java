@@ -1,6 +1,7 @@
 package gb.nabson.taxonomy.app.web.controller;
 
 
+import gb.nabson.taxonomy.app.api.model.DivisionList;
 import gb.nabson.taxonomy.app.service.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -53,7 +53,7 @@ public class JdbcDivisionRepository implements DivisionRepository {
         String sql = "INSERT INTO division (id, name, description) VALUES (?,?,?) " +
                 "ON CONFLICT (id) DO UPDATE " +
                 "SET name = EXCLUDED.name, description = EXCLUDED.description";
-        this.jdbcTemplate.update(sql, division.getId(), division.getName(), division.getName());
+        this.jdbcTemplate.update(sql, division.getId(), division.getName(), division.getDescription());
     }
 
     @Override

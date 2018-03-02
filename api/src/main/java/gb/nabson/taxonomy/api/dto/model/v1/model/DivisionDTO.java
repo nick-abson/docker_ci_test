@@ -1,32 +1,18 @@
-package gb.nabson.taxonomy.api.model;
+package gb.nabson.taxonomy.api.dto.model.v1.model;
 
+public class DivisionDTO {
 
-public class Subclass{
     private String id;
-    private Division division;
     private String name;
     private String description;
 
-    public Subclass(String id, String name, String description, Division division) {
-
+    public DivisionDTO(String id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.division = division;
     }
 
-    public Subclass()
-    {
-
-    }
-
-    public Division getDivision() {
-        return division;
-    }
-
-    public void setDivision(Division division) {
-        this.division = division;
-    }
+    public DivisionDTO() { }
 
     public String getId() {
         return id;

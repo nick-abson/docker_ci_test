@@ -18,7 +18,7 @@
     <p class="lead"> docker/jenkins test </p>
 </div>
 
-<!--/*@thymesVar id="subclass" type="gb.nabson.taxonomyapi.model.Subclass"*/-->
+<!--/*@thymesVar id="subclassTO" type="gb.nabson.taxonomyapi.model.Subclass"*/-->
 <!--/*@thymesVar id="Division" type="gb.nabson.taxonomyapi.model.Division"*/-->
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
@@ -37,7 +37,7 @@
                                 <th>Description</th>
                             </tr>
                             </thead>
-                            <tr th:each="subclass : ${subclasses}">
+                            <tr th:each="subclass : ${subclasses.subclasses}">
                                 <td th:text="${subclass.id}">id</td>
                                 <td th:text="${subclass.name}">name</td>
                                 <td th:text="${subclass.description}">description</td>
