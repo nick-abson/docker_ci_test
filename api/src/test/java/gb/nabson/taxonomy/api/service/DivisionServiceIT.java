@@ -6,7 +6,6 @@ import gb.nabson.taxonomy.api.dto.model.v1.model.DivisionDTO;
 import gb.nabson.taxonomy.api.model.Division;
 import gb.nabson.taxonomy.api.service.DivisionService;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,18 +56,21 @@ public class DivisionServiceIT {
     @Test
     public void putDivision() throws Exception {
         String updatedDescripion = "Updated Description";
+        String updatedName = "Updated Name";
         String testId = getDivisionId();
 
         Division division = divisionRepository.findById(testId);
         assertNotNull(division);
 
         String originalDescription =division.getDescription();
+        String originalName =division.getName();
 
         // use DTO with the service
         DivisionDTO divisionDTO = new DivisionDTO();
 
         divisionDTO.setId(testId);
         divisionDTO.setDescription(updatedDescripion);
+        divisionDTO.setName(updatedName);
 
         divisionService.saveDivision(divisionDTO);
 
@@ -76,11 +78,11 @@ public class DivisionServiceIT {
 
         assertNotNull(updatedDivision);
 
-        String n = updatedDivision.getDescription();
-        System.out.println(updatedDescripion +" "+ n);
+        assertEquals(updatedName, updatedDivision.getName());
+        assertNotEquals(originalName, updatedDivision.getName());
+
         assertEquals(updatedDescripion, updatedDivision.getDescription());
         assertNotEquals(originalDescription, updatedDivision.getDescription());
-
 
     }
     private String getDivisionId() {

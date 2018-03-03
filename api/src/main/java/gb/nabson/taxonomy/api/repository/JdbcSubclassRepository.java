@@ -8,7 +8,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 
 @Repository
@@ -30,11 +33,16 @@ public class JdbcSubclassRepository implements SubclassRepository {
     @Override
     public List<Subclass> findAll(String divisionId) {
 
-        String sql = "SELECT id, division_id, name, description FROM subclass WHERE division_id = ?";
+        String sql = "SELECT subclass.id, division.id division_id, division.name division_name, division.description division_description," +
+                " subclass.name, subclass.description" +
+                " FROM subclass , division" +
+                " WHERE subclass.division_id = division.id "+
+                " AND division.id = ?";
 
-        RowMapper<Subclass> rowMapper = new BeanPropertyRowMapper<Subclass>(Subclass.class);
 
-        return this.jdbcTemplate.query(sql, rowMapper, divisionId);
+//        RowMapper<Subclass> rowMapper = new BeanPropertyRowMapper<Subclass>(Subclass.class);
+
+        return this.jdbcTemplate.query(sql, new SubclassRowMapper(new DivisionRowMapper()), divisionId);
     }
 
     @Override
@@ -51,8 +59,8 @@ public class JdbcSubclassRepository implements SubclassRepository {
     public void save(Subclass subclass) {
         String sql = "INSERT INTO subclass (id, division_id, name, description) VALUES (?,?,?,?) " +
                 "ON CONFLICT (id,division_id) DO UPDATE " +
-                "SET name = EXCLUDED.name, description = EXCLUDED.description";
-        this.jdbcTemplate.update(sql, subclass.getId(), subclass.getDivision().getId(), subclass.getName(), subclass.getName());
+                "SET name = EXCLUDED.name, description = EXCLUDED.description, division_id = EXCLUDED.division_id" ;
+        this.jdbcTemplate.update(sql, subclass.getId(), subclass.getDivision().getId(), subclass.getName(), subclass.getDescription());
     }
 
     @Override

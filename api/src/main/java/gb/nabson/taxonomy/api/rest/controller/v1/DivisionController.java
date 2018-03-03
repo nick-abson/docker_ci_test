@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 /**
  * GET /divisions  = get all divisions GET /divisions/id = get specific division POST /divisions = create a new division PUT /divisions/id =
@@ -62,6 +61,15 @@ public class DivisionController {
 
         divisionDTO.setId(id);
         divisionService.saveDivision(divisionDTO);
+    }
+
+    @PatchMapping("/divisions/{id}")
+    public void patchDivision(@RequestBody DivisionDTO divisionDTO, @PathVariable String id) {
+        // replace the resource at this specified uri
+        // TODO check body to confirm that no (inconsistent) divisionDTO id was supplied
+
+        divisionDTO.setId(id);
+        divisionService.patchDivision(divisionDTO);
     }
 
 
