@@ -21,12 +21,12 @@ mvn compile'''
       parallel {
         stage('integration test (api)') {
           steps {
-            sh 'mvn integration-test'
+            sh 'cd api;mvn integration-test'
           }
         }
         stage('test (app)') {
           steps {
-            sh 'mvn test'
+            sh 'cd app;mvn test'
           }
         }
       }
@@ -35,12 +35,12 @@ mvn compile'''
       parallel {
         stage('package (api)') {
           steps {
-            sh 'mvn package'
+            sh 'cd api;mvn package'
           }
         }
         stage('package (app)') {
           steps {
-            sh 'mvn package'
+            sh 'cd app;mvn package'
           }
         }
       }
