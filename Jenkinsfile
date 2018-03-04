@@ -35,12 +35,12 @@ mvn compile'''
       parallel {
         stage('package (api)') {
           steps {
-            sh 'cd api;mvn package'
+            sh 'cd api;mvn package -DskipTests'
           }
         }
         stage('package (app)') {
           steps {
-            sh 'cd app;mvn package'
+            sh 'cd app;mvn package -DskipTests'
           }
         }
       }
