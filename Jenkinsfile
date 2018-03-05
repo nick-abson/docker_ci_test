@@ -5,14 +5,12 @@ pipeline {
       parallel {
         stage('compile api') {
           steps {
-            sh '''cd api
-mvn compile'''
+            sh 'cd api;mvn clean compile'
           }
         }
         stage('compile app') {
           steps {
-            sh '''cd app
-mvn compile'''
+            sh 'cd app;mvn clean compile'
           }
         }
       }
